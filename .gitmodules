@@ -1,0 +1,4 @@
+[submodule "nfb"]
+	path = nfb
+	url = https://github.com/nikolaims/nfb
+	branch = issue-9-add-3d-source-space-window
