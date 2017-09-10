@@ -40,6 +40,7 @@ class Experiment():
         self.activate_trouble_catching = False
         self.main = None
         self.restart()
+        pass
 
     def update(self):
         """
