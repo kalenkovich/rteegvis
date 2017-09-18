@@ -1,6 +1,6 @@
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtCore, QtGui
-
+from pyqtgraph import opengl as gl
 app = QtGui.QApplication([])
 import pyqtgraph.parametertree.parameterTypes as pTypes
 from pyqtgraph.parametertree import Parameter, ParameterTree, ParameterItem, registerParameterType
@@ -56,6 +56,7 @@ params = [
         {'name': 'Cortex', 'type': 'group', 'children':[
             {'name': 'Flattening', 'type': 'int', 'suffix': '%', 'bounds': [0, 100], 'step': 10, 'value': 0},
             ListParameter(name='Hemispheres', limits=['left', 'right', 'both']),
+            ListParameter(name='Shader', limits=gl.shaders.ShaderProgram.names.keys(), value='shaded')
         ]},
 
     ]},
