@@ -1,0 +1,4 @@
+[submodule "nfb"]
+	path = nfb
+	url = https://github.com/nikolaims/nfb.git
+	branch = issue-13-source-space-settings
