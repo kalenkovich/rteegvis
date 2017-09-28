@@ -7,6 +7,8 @@ from nfb.pynfb.io.xml_ import xml_file_to_params
 from nfb.pynfb.generators import stream_file_in_a_thread
 from nfb.pynfb.inlets.lsl_inlet import LSLInlet
 
+app = QtGui.QApplication([])
+
 protocol = SourceSpaceRecontructor(signals=None)
 window = SourceSpaceWindow(parent=None, current_protocol=protocol)
 window.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
@@ -16,6 +18,7 @@ window.showMinimized()
 settings = window.settings
 settings_widget = window.settings_widget
 sourcespace_widget = window.figure
+sourcespace_painter = protocol.widget_painter
 
 
 # Read params from the settings file
@@ -44,5 +47,3 @@ if __name__ == '__main__':
     timer = QtCore.QTimer()
     timer.timeout.connect(update)
     timer.start(1000. / freq)
-
-
