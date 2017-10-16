@@ -35,7 +35,7 @@ freq = stream.get_frequency()
 def update():
     chunk = stream.get_next_chunk()
     if chunk is not None:
-        protocol.widget_painter.redraw_state(chunk)
+        protocol.update_state(chunk)
 
 
 ## Start Qt event loop unless running in interactive mode or using pyside.
