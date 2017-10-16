@@ -1,6 +1,8 @@
-from nfb.pynfb.brain import SourceSpaceWidgetPainterSettings
+import importlib
+from nfb.pynfb import brain
+# importlib.reload(brain)
 
-settings = SourceSpaceWidgetPainterSettings()
+settings = brain.SourceSpaceWidgetPainterSettings()
 widget = settings.create_widget()
 widget.show()
 slider_widget = list(settings.colormap.threshold_pct.items.items())[0][0].slider_widget
