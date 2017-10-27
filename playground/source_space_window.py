@@ -2,17 +2,27 @@ import sympy # sympy has to be imported before pyqtgraph on my setup
 from pyqtgraph import QtCore, QtGui
 
 from nfb.pynfb.windows import SourceSpaceWindow
-from nfb.pynfb.brain import SourceSpaceRecontructor
+from nfb.pynfb.brain import SourceSpaceReconstructor
 from nfb.pynfb.io.xml_ import xml_file_to_params
 from nfb.pynfb.generators import stream_file_in_a_thread
 from nfb.pynfb.inlets.lsl_inlet import LSLInlet
 
 app = QtGui.QApplication([])
 
-protocol = SourceSpaceRecontructor(signals=None)
+# Read params from the settings file
+params = xml_file_to_params('nfb/pynfb/sourcespace.xml')
+file_path = params['sRawDataFilePath']
+stream_name = params['sStreamName']
+reference = params['sReference']
+
+# Connect to the stream
+stream = LSLInlet(name=stream_name)
+fs = stream.get_frequency()
+
+protocol = SourceSpaceReconstructor(stream)
 window = SourceSpaceWindow(parent=None, current_protocol=protocol)
 window.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-window.showMinimized()
+window.show()
 
 
 settings = window.settings
@@ -21,15 +31,7 @@ sourcespace_widget = window.figure
 sourcespace_painter = protocol.widget_painter
 
 
-# Read params from the settings file
-params = xml_file_to_params('nfb/pynfb/sourcespace.xml')
-file_path = params['sRawDataFilePath']
-stream_name = params['sStreamName']
-reference = params['sReference']
 
-# Start updating the brain
-stream = LSLInlet(name=stream_name)
-freq = stream.get_frequency()
 
 
 def update():
@@ -45,7 +47,7 @@ if __name__ == '__main__':
     print('creating timer')
     timer = QtCore.QTimer()
     timer.timeout.connect(update)
-    timer.start(1000. / freq)
+    timer.start(1000. / fs)
 
     if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
         sys.exit(QtGui.QApplication.instance().exec_())

@@ -14,12 +14,12 @@ from OpenGL.GL import (GL_ONE, GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA, GL_FUNC_ADD
                        GL_CULL_FACE, GL_FRONT, GL_FRONT_FACE, GL_BACK)
 
 
-from nfb.pynfb.brain import SourceSpaceWidget, SourceSpaceWidgetPainter, SourceSpaceRecontructor
+from nfb.pynfb.brain import SourceSpaceWidget, SourceSpaceWidgetPainter, SourceSpaceReconstructor
 
 app = QtGui.QApplication([])
 
 widget = SourceSpaceWidget()
-reconstructor = SourceSpaceRecontructor(signals=None)
+reconstructor = SourceSpaceReconstructor(signals=None)
 painter = SourceSpaceWidgetPainter(reconstructor)
 painter.prepare_widget(widget)
 widget.show()
